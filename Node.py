@@ -11,24 +11,35 @@ class Node:
 	def __init__(self):
 		self.nodes = self.__init_array(4, None)
 		self.connects = self.__init_array(4, False)
+		self.group_id = object()
 		
 	def __init_array(self, l, v):
 		a = []
 		for i in range(l):
 			a.append(v)
 		return a
-		
+	
+	def __set_group_id(self, obj):
+		if self.group_id != obj:
+			self.group_id = obj #Must do first!
+			for n in self.nodes:
+				if n != None:
+					n.__set_group_id(obj)
+	
 	def set_node(self, node, dir):
 		if self.nodes[dir] != None:
-			self.nodes[dir].nodes[self.__inverse[dir]] = None
+			raise Exception("set_node can only be called once per direction.")#Should make this more specific
 		self.nodes[dir] = node
 		node.nodes[self.__inverse[dir]] = self
 	
 	def connect_node(self, dir):
 		if self.nodes[dir] == None:
 			raise IndexError("There is no node to connect to.")
+		if self.group_id == self.nodes[dir].group_id:
+			raise Exception("Cannot connect to node in same group.")#Should make this more specific
 		self.connects[dir] = True
 		self.nodes[dir].connects[self.__inverse[dir]] = True
+		self.nodes[dir].__set_group_id(self.group_id)
 	
 	def has_node(self, dir):
 		return self.nodes[dir] != None
@@ -45,7 +56,9 @@ class Node:
 	def get_valid_directions(self):
 		out = []
 		for i in self.__all:
-			if self.nodes[i] != None and not self.connects[i]:
+			if self.nodes[i] != None and \
+			 not self.connects[i] and \
+			 self.nodes[i].group_id != self.group_id :
 				out.append(i)
 		return out
 	

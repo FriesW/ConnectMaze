@@ -5,7 +5,8 @@ class Node:
 	BOTTOM = 2
 	LEFT = 3
 	
-	__inverse = [BOTTOM, LEFT, TOP, RIGHT]
+	__all     = [ TOP,    RIGHT, BOTTOM, LEFT  ]
+	__inverse = [ BOTTOM, LEFT,  TOP,    RIGHT ]
 
 	def __init__(self):
 		self.nodes = self.__init_array(4, None)
@@ -34,11 +35,28 @@ class Node:
 	
 	def is_connected(self, dir):
 		return self.connects[dir]
+		
+	def is_any_connected(self):
+		for conn in self.connects:
+			if conn:
+				return True
+		return False
+	
+	def get_valid_directions(self):
+		out = []
+		for i in self.__all:
+			if self.nodes[i] != None:
+				out.append(i)
+		return out
 	
 	def get_node(self, dir):
 		if not self.has_node(dir):
 			raise IndexError("Node doesn't exist! First check if it does with is_DIR_node().");
 		return self.nodes[dir]
+	
+	
+	
+	#Remove?
 	
 	def is_set_to(self, node):
 		return node in self.nodes

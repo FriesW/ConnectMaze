@@ -7,12 +7,16 @@ class Grid:
 		self.yd = int(yd)
 		if self.xd < 1 or self.yd < 1:
 			raise ValueError("Grid dimensions must be one or greater.")
+		self.all = []
 		
 		def make_line(length):
 			first = Node()
+			self.all.append(first)
 			current = first
 			for x in range(length - 1):
-				current.set_node( Node(), Node.RIGHT )
+				nn = Node()
+				self.all.append(nn)
+				current.set_node( nn, Node.RIGHT )
 				current = current.get_node( Node.RIGHT )
 			return first
 		
@@ -41,6 +45,9 @@ class Grid:
 		for i in range(y):
 			current = current.get_node( Node.BOTTOM )
 		return current
+	
+	def get_all_nodes(self):
+		return self.all[:]
 	
 	def printable(self, wall_chr = u"\u2588", node_chr = ' ', connector_chr = ' ',\
 						horizontal_scale = 3):

@@ -45,7 +45,7 @@ class Node:
 	def get_valid_directions(self):
 		out = []
 		for i in self.__all:
-			if self.nodes[i] != None:
+			if self.nodes[i] != None and not self.connects[i]:
 				out.append(i)
 		return out
 	

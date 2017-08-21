@@ -15,10 +15,9 @@ def make_maze(xd, yd, seed):
 	random.shuffle(all)
 	
 	for node in all:
-		#print master.printable()
-		#raw_input("wait...")
-		if not node.is_any_connected():
-			dir = random.choice( node.get_valid_directions() )
+		dirs = node.get_valid_directions()
+		if len(dirs) > 0:
+			dir = random.choice(dirs)
 			node.connect_node(dir)
 	
 	return master.printable()

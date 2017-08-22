@@ -12,12 +12,14 @@ def make_maze(xd, yd, seed):
 	master = Grid(xd, yd)
 	all = master.get_all_nodes()
 	
-	random.shuffle(all)
+	for i in range(2):
 	
-	for node in all:
-		dirs = node.get_valid_directions()
-		if len(dirs) > 0:
-			dir = random.choice(dirs)
-			node.connect_node(dir)
+		random.shuffle(all)
+		
+		for node in all:
+			dirs = node.get_valid_directions()
+			if len(dirs) > 0:
+				dir = random.choice(dirs)
+				node.connect_node(dir)
 	
 	return master.printable()

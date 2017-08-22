@@ -23,7 +23,7 @@ class Node:
 		if self.group_id != obj:
 			self.group_id = obj #Must do first!
 			for n in self.nodes:
-				if n != None:
+				if n != None and self.connects[self.nodes.index(n)]: #If exists and connected to
 					n.__set_group_id(obj)
 	
 	def set_node(self, node, dir):

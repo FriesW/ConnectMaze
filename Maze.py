@@ -21,6 +21,7 @@ def make_maze(xd, yd, seed):
 			if len(dirs) > 0:
 				dir = random.choice(dirs)
 				node.connect_node(dir)
+			if len(dirs) > 1:
 				next.append(node)
 		
 		candidates = next

@@ -29,7 +29,7 @@ def __ns(i):
 def decode(encoded):
 	l = __b32dec(encoded)
 	l = l.split('|')
-	return (int(l[0]), int(l[1]), int(l[2]), l[3])
+	return (int(l[0]), int(l[1]), l[2])
 
 def encode(xd, yd, seed):
 	l = [__ns(xd), __ns(yd),__ss(seed)]
@@ -46,8 +46,7 @@ def param_format(xd, yd, seed):
 	seed =__ss(seed)
 	
 	out = "Maze Hash: " + encode(xd, yd, seed) + "\n"
-	out += "Dimensions: " + xd + "x" + yd + "\n"
-	out += "Mutations: " + sp
+	out += "Dimensions: " + xd + "x" + yd
 	return out
 	
 	

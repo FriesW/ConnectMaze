@@ -1,11 +1,11 @@
 from Grid import Grid
 import random
-#from Param_utils import sanitize_seed
+from Param_Utils import sanitize_seed
 
 def make_maze(xd, yd, seed):
 	xd = int(xd)
 	yd = int(yd)
-	#seed = sanitize_seed(seed)
+	seed = sanitize_seed(seed)
 	
 	random.seed(seed)
 	
